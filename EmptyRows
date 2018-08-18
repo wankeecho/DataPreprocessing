@@ -1,0 +1,16 @@
+foo <- data.frame(ID=c(1:4),
+                  character = c("a","b","","d"),
+                  integer=c(1,2,NA,4),
+                  Date=as.Date(c("2015-11-10","2015-11-10","","2015-11-11")))
+unlist(lapply(foo,class))
+
+sapply(foo, function(x) table(as.character(x)=="")["TRUE"])
+# ID character   integer      Date 
+# "integer"  "factor" "numeric"    "Date" 
+
+foo[sapply(foo, function(x) as.character(x)=="")] <- NA
+#   ID    character   integer   Date
+#1  1     a           1         2015-11-10
+#2  2     b           2         2015-11-10
+#3  3     NA          NA        NA
+#4  4     d           4         2015-11-11
